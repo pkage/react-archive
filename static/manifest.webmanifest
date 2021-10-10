@@ -1,0 +1,15 @@
+{
+    "background_color": "#141414",
+    "description": "rxn kage",
+    "display": "fullscreen",
+    "icons": [
+        {
+            "src": "/static/icon.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        }
+    ],
+    "name": "rxn kage",
+    "short_name": "rxn",
+    "start_url": "/"
+}

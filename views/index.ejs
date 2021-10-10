@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>rxn</title>
+        <link href="/static/index.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css" crossorigin="anonymous">
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+        <link rel="manifest" href="/static/manifest.webmanifest">
+        <link rel="icon" href="/static/icon.png">
+        <link rel="apple-touch-icon" href="/static/icon.png">
+    </head>
+
+    <body>
+        <div id="app">
+            <div class="strip">
+                <input type="radio" id="chronological" name="sort" checked>
+                <label class="strip__sort" for="chronological" v-on:click="select_chronological">
+                    <i class="fas fa-clock"></i>
+                </label>
+                <input type="radio" id="random" name="sort" >
+                <label class="strip__sort" for="random" v-on:click="select_random">
+                    <i class="fas fa-random"></i>
+                </label>
+
+                <input type="radio" id="search" name="sort">
+                <label for="search">
+                    <input
+                        name="query"
+                        type="text"
+                        id="query"
+                        value=""
+                        class="strip__query"
+                        autocomplete="off"
+                        placeholder="search"
+                        autocorrect="off"
+                        v-on:click="select_querybox"
+                        v-on:keyup="handle_query_keyup"
+                        v-model="query">
+                </label>
+
+                <div class="strip__spacer"></div>
+
+                <a href="/">rxn</a>
+            </div>
+            <div class="grid-outer">
+                <div class="grid">
+                    <div
+                        class="grid-item"
+                        v-for="item in items"
+                        :key="item.id"
+                        v-bind:style="{backgroundImage: `url(${item.img})`}"
+                        v-on:click="open_modal(item)">
+                        <div class="grid-item__sel"></div>
+                    </div>
+
+
+                    <div class="grid-item grid-item__more" v-on:click="handle_loadmore" v-if="mode !== 'search'">
+                        <i v-if="loading" class="fas fa-spinner"></i>
+                        <i v-else="" class="fas fa-ellipsis-h"></i>
+                    </div>
+                </div>
+            </div>
+            <div v-bind:class="{modal: true, 'modal--open': modal_open}">
+                <div class="modal-close" v-on:click="close_modal">
+                    <i class="fas fa-times"></i>
+                </div>
+                <div class="modal__paddle modal__paddle--left" v-on:click="handle_pageleft">
+                    <i class="fas fa-chevron-left"></i>
+                </div>
+                <div class="modal__paddle modal__paddle--right" v-on:click="handle_pageright">
+                    <i class="fas fa-chevron-right"></i>
+                </div>
+
+                <div
+                    v-if="modal_open"
+                    v-bind:style="{backgroundImage: `url(${item.img})`}"
+                    class="modal__image">
+                    <img :src="item.img" :alt="item.id">
+                </div>
+
+                <div class="modal__info">
+                    <div class="modal__info__desc" v-html="item.text"></div>
+                    <div class="modal__info__links">
+                        <a target="_blank" :href="'https://twitter.com/' + item.author + '/status/' + item.id">original</a> /
+                        <a :href="item.img" target="_blank">image</a>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+        <script src="/static/index.js"></script>
+    </body>
+</html>

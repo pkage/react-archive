@@ -1,0 +1,20 @@
+{
+  "name": "react-archive",
+  "version": "1.0.0",
+  "description": "reaction image archive",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Patrick Kage",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.21.1",
+    "bcrypt": "^5.0.0",
+    "dotenv": "^8.2.0",
+    "ejs": "^3.1.5",
+    "express": "^4.17.1",
+    "sqlite": "^4.0.19",
+    "sqlite3": "^5.0.1"
+  }
+}

@@ -1,0 +1,278 @@
+:root {
+    --color-bg: #141414;
+    --color-text: #eef0f2;
+
+    --color-accent: #eec643;
+    --color-accent-dark: #0d21a1;
+    --cell-size: 200px;
+}
+
+@media (max-width: 768px) {
+    :root {
+        --cell-size: 100px;
+
+    }
+}
+
+html {
+    background-color: var(--color-bg);
+}
+
+body {
+    color: var(--color-text);
+
+    font-family: 'Open Sans', sans-serif;
+    margin: 0;
+}
+
+#app {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+
+}
+
+.strip {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 5px 1em;
+    font-size: 1.1em;
+}
+
+.strip > input[type="radio"] {
+    display: none;
+}
+
+.strip__sort {
+    cursor: pointer;
+    margin-right: 1em;
+}
+
+input[type="radio"]:checked+.strip__sort {
+    color: var(--color-accent);
+}
+
+.strip > label[for="search"] {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    min-height: 35px;
+}
+
+.strip__query {
+    background-color: inherit;
+    color: inherit;
+    border: 0;
+    border-bottom: 1px solid var(--color-text);
+    outline: none;
+    border-radius: 0px;
+}
+
+.strip__query:focus, input[type="radio"]:checked + label > .strip__query {
+    color: var(--color-accent);
+    border-bottom: 1px solid var(--color-accent);
+}
+
+.strip__spacer {
+    flex-grow: 1;
+}
+
+.strip a {
+    text-decoration: none;
+}
+
+.grid {
+    padding: 5px 5px 5px 15px;
+    flex-grow: 1;
+    display: grid;
+    grid-auto-rows: var(--cell-size);
+    grid-template-columns: repeat(auto-fit, var(--cell-size));
+    grid-column-gap: 10px;
+    grid-row-gap: 10px;
+}
+
+.grid-item {
+    /*background-color: var(--color-accent-dark);*/
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+
+    position: relative;
+    cursor: pointer;
+}
+
+.grid-item:hover > .grid-item__sel {
+    opacity: 0.6;
+}
+.grid-item__sel {
+    display: block;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: var(--color-accent);
+    transition: all .1s cubic-bezier(0,0,0.3,1);
+    opacity: 0;
+}
+
+
+.grid-item__more {
+    display: flex;
+
+    background-color: inherit;
+    justify-content: center;
+    align-items: center;
+
+    color: #2b2b2b;
+    border: 2px dashed #2b2b2b;
+
+    transition: color 0.1s cubic-bezier(0,0,0.3,1),
+                border-color 0.1s cubic-bezier(0,0,0.3,1);
+
+    cursor: pointer;
+}
+
+.grid-item__more:hover {
+    color: var(--color-text);
+    border-color: var(--color-text);
+}
+
+.fa-spinner {
+    animation: spin 1s infinite;
+    animation-timing-function: linear;
+}
+
+@keyframes spin {
+    from {
+        transform:  rotate(0deg);
+    }
+    to {
+        transform:  rotate(360deg);
+    }
+}
+
+
+.has-open-modal {
+    overflow: hidden;
+}
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+
+    background-color: rgba(20,20,20,0.95);
+
+    opacity: 0;
+    pointer-events: none;
+}
+
+.modal--open {
+    opacity: 1;
+    pointer-events: initial;
+
+}
+
+.modal-close {
+    font-size: 2em;
+    position: fixed;
+
+    z-index: 100;
+
+    right: 20px;
+    top: 10px;
+
+    transition: color 0.1s cubic-bezier(0,0,0.3,1);
+    cursor: pointer;
+}
+.modal-close:hover {
+    color: var(--color-accent);
+}
+
+.modal__image {
+    flex-grow: 1;
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+
+    overflow: hidden;
+}
+
+.modal__image > img {
+    transform: scale(50);
+    opacity: 0;
+}
+
+
+.modal__info {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+
+    padding: 25px;
+    margin: 0px -25px -25px -25px;
+    
+    z-index: 75;
+}
+
+.modal__info__desc {
+    flex-grow: 1;
+    margin-right: 1em;
+    
+}
+
+a {
+    color: var(--color-text);
+}
+
+.modal__paddle {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+
+    width: 100px;
+
+    display: flex;
+    cursor: pointer;
+
+    z-index: 50;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 2em;
+
+    opacity: 0.1;
+}
+
+@media (min-width: 768px) {
+    .modal__paddle:hover {
+        background-color: gray;
+        opacity: 0.3;
+    }
+}
+
+.modal__paddle:active {
+    background-color: gray;
+    opacity: 0.3;
+}
+
+.modal__paddle--left {
+    left: 0;
+}
+
+.modal__paddle--right {
+    right: 0;
+}

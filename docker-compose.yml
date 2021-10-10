@@ -1,0 +1,10 @@
+version: '3'
+services:
+    rxn-core:
+        image: rxn-core
+        env_file:
+            - ".env"
+        ports:
+            - "3050:3050"
+        volumes:
+            - "./instance/:/app/instance/"
